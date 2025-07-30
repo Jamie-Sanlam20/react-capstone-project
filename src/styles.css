@@ -1,0 +1,170 @@
+.device-container {
+  width: 340px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.device-poster {
+  height: 640px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.device-specs {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.spec-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.spec-list li {
+  min-height: 1.5rem;
+}
+
+
+.device-name {
+  font-size: 24px;
+  margin: 0;
+}
+
+.device-rating {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.device-summary {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.device-content-container {
+  padding: 16px;
+}
+
+.device-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.device-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  max-width: 500px;
+  margin: 0 auto;
+
+  margin-bottom: 32px;
+}
+
+nav {
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    padding: 0;
+  }
+}
+
+.device-details-content-container {
+  max-width: 600px;
+}
+
+.phone-img {
+    width: 50px;
+}
+
+.banner {
+        background: url(https://images.creativemarket.com/0.1.0/ps/2418811/5000/3558/m1/fpnw/wm0/1088-.jpg?1489704289&s=838f9a0d9fda896de937d4427326b5b3);
+        height: 900px;
+
+        /* removes repitition of BG */
+        background-repeat: no-repeat;
+
+        /* Zoom in */
+        background-size: cover;
+
+        /* Focus on bottom */
+        background-position: bottom;
+
+        /* Blend */
+        background-blend-mode: luminosity;
+
+        /* Center */
+        display: grid;
+        place-content: center;
+      }
+
+      .banner-title {
+        margin: 0px;
+        font-size: 64px;
+        font-family: "Pacifico", cursive;
+        color: white;
+
+        background: rgba(106, 110, 111, 0.455);
+        padding: 16px;
+      }
+
+      .logo {
+        display: inline;
+        height: 60px;
+      }
+
+        .nav-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-buttons button {
+        background-color: white;
+        color: black;
+        border: 1px solid #555;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .nav-buttons button:hover {
+        background-color: #e6bfa6;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(163, 218, 246, 1);
+        padding: 5px;
+        font-family: sans-serif;
+      }
+
+      .company-details {
+        display: flex;
+        gap: 12px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bold;
+        align-items: center;
+      }
+
+      body {
+        margin: 0px
+      }
+
+      .quote-heading, .quote-details, .coverage-list {
+        font-family: Roboto;
+      }
