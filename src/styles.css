@@ -94,10 +94,6 @@
 
         /* Focus on bottom */
         background-position: bottom;
-
-        /* Center */
-        /* display: grid;
-        place-content: center; */
       }
 
 .banner-title {
@@ -105,41 +101,15 @@
   font-size: 48px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
-  /* color: #222; */
   text-align: center;
-
-    /* background: #f9f9f9;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  letter-spacing: 0.5px; */
-
 }
 
 
       .banner-subtitle {
   font-size: 1.2rem;
-  /* color: #555; */
   margin-top: 10px;
   text-align: center;
-    /* background: #f9f9f9;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  letter-spacing: 0.5px; */
 }
-
-/* .banner-text {
-  background-color: #f9f9f9;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  letter-spacing: 0.5px;
-} */
-
 
       .company-details {
         display: flex;
@@ -221,3 +191,15 @@
         flex-direction: column;
         gap: 20px;
       }
+
+.error-container {
+  background-image: url(https://www.vizion.com/wp-content/uploads/2018/09/shutterstock_479042983.jpg);
+  height: 100vh;                     
+  background-repeat: no-repeat;
+  background-size: cover;            
+  background-position: center;       
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
