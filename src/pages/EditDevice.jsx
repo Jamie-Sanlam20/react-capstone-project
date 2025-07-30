@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
-import { Button } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
 export function EditDevice() {
   const { id } = useParams();
@@ -79,33 +79,33 @@ function EditDeviceForm({ device }) {
 
   return (
     <form onSubmit={updateDevice} className="device-form-container">
-      <input
+      <TextField
         onChange={(event) => setName(event.target.value)}
         type="text"
         placeholder="Name"
         value={name}
       />
-      <input
+      <TextField
         onChange={(event) => setBrand(event.target.value)}
         type="text"
         placeholder="Brand"
         value={brand}
       />
-      <input
+      <TextField
         onChange={(event) => setSerialNumber(event.target.value)}
         type="text"
         placeholder="Serial Number"
         value={serialNumber}
       />
 
-      <input
+      <TextField
         onChange={(event) => setPurchaseYear(event.target.value)}
         type="text"
         placeholder="Purchase Year"
         value={purchaseYear}
       />
 
-      <input
+      <TextField
         onChange={(event) => setPrice(event.target.value)}
         type="text"
         placeholder="Original Purchase Price"

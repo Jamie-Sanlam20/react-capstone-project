@@ -15,8 +15,9 @@
 
 .device-specs {
   display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .spec-list {
@@ -91,72 +92,68 @@ nav {
 }
 
 .banner {
-        background: url(https://images.creativemarket.com/0.1.0/ps/2418811/5000/3558/m1/fpnw/wm0/1088-.jpg?1489704289&s=838f9a0d9fda896de937d4427326b5b3);
+        background: url(https://static.vecteezy.com/system/resources/previews/010/829/956/original/mockup-gadget-and-device-smartphones-tablets-laptops-and-computer-monitors-black-with-blank-screen-png.png);
         height: 900px;
 
         /* removes repitition of BG */
         background-repeat: no-repeat;
 
         /* Zoom in */
-        background-size: cover;
+        background-size: contain;
 
         /* Focus on bottom */
         background-position: bottom;
 
-        /* Blend */
-        background-blend-mode: luminosity;
-
         /* Center */
-        display: grid;
-        place-content: center;
+        /* display: grid;
+        place-content: center; */
       }
 
-      .banner-title {
-        margin: 0px;
-        font-size: 64px;
-        font-family: "Pacifico", cursive;
-        color: white;
+.banner-title {
+  margin: 0;
+  font-size: 48px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  /* color: #222; */
+  text-align: center;
 
-        background: rgba(106, 110, 111, 0.455);
-        padding: 16px;
-      }
+    /* background: #f9f9f9;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  letter-spacing: 0.5px; */
 
-      .logo {
-        display: inline;
-        height: 60px;
-      }
+}
 
-        .nav-buttons {
-        display: flex;
-        gap: 15px;
-      }
 
-      .nav-buttons button {
-        background-color: white;
-        color: black;
-        border: 1px solid #555;
-        padding: 8px 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
-      }
+      .banner-subtitle {
+  font-size: 1.2rem;
+  /* color: #555; */
+  margin-top: 10px;
+  text-align: center;
+    /* background: #f9f9f9;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  letter-spacing: 0.5px; */
+}
 
-      .nav-buttons button:hover {
-        background-color: #e6bfa6;
-      }
+.banner-text {
+  background-color: #f9f9f9;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
 
-      .header {
-        display: flex;
-        justify-content: space-between;
-        background-color: rgba(163, 218, 246, 1);
-        padding: 5px;
-        font-family: sans-serif;
-      }
 
       .company-details {
         display: flex;
         gap: 12px;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-family: Roboto;
         font-weight: bold;
         align-items: center;
       }
@@ -167,4 +164,38 @@ nav {
 
       .quote-heading, .quote-details, .coverage-list {
         font-family: Roboto;
+      }
+
+      .app-bar {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      @media (min-width: 900px) {
+        .css-1t6c9ts {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+
+      .quote-page {
+        margin: 30px;
+      }
+
+      .search-form-container {
+        margin: 10px;
+      }
+
+      .btn-container {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .theme-switch {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.5rem 1rem;
       }

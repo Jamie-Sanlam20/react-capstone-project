@@ -1,9 +1,12 @@
-import { Button, TextField } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { useEffect, useState } from "react";
-import { Device } from "../components/Device";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
+import { Button, TextField } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { Device } from "../components/Device";
 
 export function Dashboard() {
   const [devices, setDevices] = useState([]);
@@ -43,21 +46,32 @@ export function Dashboard() {
     getDevices(searchTerm);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div>
-      <form onSubmit={searchDevices} className="color-form-container">
+      <form onSubmit={searchDevices} className="search-form-container">
         <TextField
           className="search-bar"
           size="small"
           onChange={(event) => setSearchTerm(event.target.value)}
           label="Search"
-          type="text"
           variant="outlined"
+          fullWidth
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            },
+          }}
         />
 
-        <IconButton color="primary" aria-label="search">
+        {/* <IconButton color="primary" aria-label="search">
           <SearchIcon />
-        </IconButton>
+        </IconButton> */}
       </form>
 
       <section className="device-list-container">
@@ -67,9 +81,10 @@ export function Dashboard() {
             device={device}
             deleteBtn={
               <Button
-                variant="contained"
+                variant="outlined"
                 color="error"
                 onClick={() => deleteDevice(device.id)}
+                startIcon={<DeleteIcon />}
               >
                 {" "}
                 Delete
@@ -77,8 +92,8 @@ export function Dashboard() {
             }
             editBtn={
               <IconButton
-                color="secondary"
-                onClick={() => navigate(`/devices/edit/${device.id}`)}
+                color="tertiary"
+                onClick={() => navigate(`/edit/${device.id}`)}
                 aria-label={`Edit ${device.name} device`}
               >
                 <EditIcon />

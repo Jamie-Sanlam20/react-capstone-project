@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Divider,
-} from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import SendIcon from "@mui/icons-material/Send";
+import {
+  Button,
+  Card,
+  CardContent,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 // Presentation
-export function Device({ device, deleteBtn }) {
+export function Device({ device, deleteBtn, editBtn }) {
   return (
     <Card
       className="device-container"
@@ -24,10 +24,7 @@ export function Device({ device, deleteBtn }) {
       elevation={3}
     >
       <CardContent className="device-content-container">
-        <div
-          className="device-specs"
-          style={{ display: "flex", gap: "1.5rem" }}
-        >
+        <div className="device-specs">
           <img
             className="phone-img"
             src="https://cdn-icons-png.flaticon.com/512/2397/2397574.png"
@@ -81,29 +78,20 @@ export function Device({ device, deleteBtn }) {
               />
             </ListItem>
           </List>
+          <div className="edit-btn">{editBtn}</div>
         </div>
 
-        <div
-          style={{
-            marginTop: "1rem",
-            display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="btn-container">
+          {deleteBtn}
+
           <Button
             variant="contained"
             component={Link}
             to={`/quotes/${device.id}`}
+            endIcon={<SendIcon />}
           >
             Get Quote
           </Button>
-
-          <Button variant="outlined" component={Link} to={`/edit/${device.id}`}>
-            Edit
-          </Button>
-
-          {deleteBtn}
         </div>
       </CardContent>
     </Card>

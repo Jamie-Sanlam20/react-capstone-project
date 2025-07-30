@@ -36,7 +36,7 @@ export function GetQuote() {
   if (!device) return <p>Loading device info...</p>;
 
   return (
-    <section>
+    <section className="quote-page">
       <h2 className="quote-heading">Quotes for {device.name}</h2>
       <div className="quote-details">
         <p>
