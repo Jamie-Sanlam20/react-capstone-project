@@ -12,7 +12,7 @@ export function GetQuote() {
   const navigate = useNavigate();
   const [device, setDevice] = useState(null);
   const [quotes, setQuotes] = useState([]);
-  const [selectedQuoteId, setSelectedQuoteId] = useState(null); // ✅ Track selection
+  const [selectedQuoteId, setSelectedQuoteId] = useState(null); // Tracks selection
 
   useEffect(() => {
     fetch(`https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`)
