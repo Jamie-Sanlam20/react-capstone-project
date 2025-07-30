@@ -1,56 +1,68 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button, TextField } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Device } from "../components/Device";
 
 export function Dashboard() {
   const [devices, setDevices] = useState([]);
-  const [searchTerm, setSearchTerm] = useState([]);
-
-  async function getDevices(searchTerm = "") {
-    const url = new URL("https://68871b87071f195ca97f46b5.mockapi.io/devices");
-
-    if (searchTerm) {
-      url.searchParams.append("search", searchTerm);
-    }
-
-    const response = await fetch(url, { method: "GET" });
-    const devices = await response.json();
-    setDevices(devices);
-  }
-
-  useEffect(() => {
-    getDevices();
-  }, []); // [] -> Empty Dependency array
-
-  const deleteDevice = async (id) => {
-    console.log("Deleting....", id); // id of the device
-    const response = await fetch(
-      `https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`,
-      { method: "DELETE" }
-    );
-    const device = await response.json();
-    console.log("Deleted", device);
-    // Refresh Data
-    getDevices();
-  };
-
-  const searchDevices = (event) => {
-    event.preventDefault();
-    console.log("Search Term:", searchTerm);
-    getDevices(searchTerm);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
+  const [brandFilter, setBrandFilter] = useState("");
 
   const navigate = useNavigate();
 
+  const getDevices = async (search = "", brand = "") => {
+    const url = new URL("https://68871b87071f195ca97f46b5.mockapi.io/devices");
+
+    if (search) url.searchParams.append("search", search);
+    if (brand) url.searchParams.append("brand", brand);
+
+    const response = await fetch(url);
+    const data = await response.json();
+    setDevices(data);
+  };
+
+  useEffect(() => {
+    getDevices();
+  }, []);
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    getDevices(searchTerm, brandFilter);
+  };
+
+  const handleBrandChange = (event) => {
+    const selectedBrand = event.target.value;
+    setBrandFilter(selectedBrand);
+    getDevices(searchTerm, selectedBrand);
+  };
+
+  const deleteDevice = async (id) => {
+    await fetch(`https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`, {
+      method: "DELETE",
+    });
+    getDevices(searchTerm, brandFilter);
+  };
+
   return (
     <div>
-      <form onSubmit={searchDevices} className="search-form-container">
+      {/* Search and Filter Form */}
+      <form
+        onSubmit={handleSearch}
+        className="search-form-container"
+        style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}
+      >
         <TextField
           className="search-bar"
           size="small"
@@ -58,22 +70,35 @@ export function Dashboard() {
           label="Search"
           variant="outlined"
           fullWidth
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            },
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
           }}
         />
 
-        {/* <IconButton color="primary" aria-label="search">
-          <SearchIcon />
-        </IconButton> */}
+        <FormControl size="small" style={{ minWidth: 150 }}>
+          <InputLabel id="brand-label">Filter</InputLabel>
+          <Select
+            labelId="brand-label"
+            value={brandFilter}
+            onChange={handleBrandChange}
+            label="Filter"
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Apple">Apple</MenuItem>
+            <MenuItem value="Samsung">Samsung</MenuItem>
+            <MenuItem value="Huawei">Huawei</MenuItem>
+            <MenuItem value="Nokia">Nokia</MenuItem>
+            <MenuItem value="Xiaomi">Xiaomi</MenuItem>
+            <MenuItem value="Microsoft">Microsoft</MenuItem>
+          </Select>
+        </FormControl>
       </form>
 
+      {/* Device List */}
       <section className="device-list-container">
         {devices.map((device) => (
           <Device
@@ -86,13 +111,11 @@ export function Dashboard() {
                 onClick={() => deleteDevice(device.id)}
                 startIcon={<DeleteIcon />}
               >
-                {" "}
                 Delete
               </Button>
             }
             editBtn={
               <IconButton
-                color="tertiary"
                 onClick={() => navigate(`/edit/${device.id}`)}
                 aria-label={`Edit ${device.name} device`}
               >
