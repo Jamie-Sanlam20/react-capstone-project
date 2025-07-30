@@ -29,7 +29,7 @@ export function Quote({ plan, isSelected, onSelect }) {
         <Button
           variant={isSelected ? "contained" : "outlined"}
           onClick={(e) => {
-            e.stopPropagation(); // prevent Card onClick bubbling
+            e.stopPropagation();
             onSelect();
           }}
           sx={{ marginTop: 1 }}

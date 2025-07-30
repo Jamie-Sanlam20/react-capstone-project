@@ -12,9 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import DevicesIcon from "@mui/icons-material/Devices";
-import { Link } from "react-router-dom"; // ✅ Import Link
+import { Link } from "react-router-dom";
 
-// Each item should match your route setup
 const pages = [
   { label: "Home", path: "/" },
   { label: "Dashboard", path: "/dashboard" },
