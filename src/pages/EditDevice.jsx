@@ -1,81 +1,72 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { useNavigate } from "react-router";
-import { TextField, Button } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Box,
+  Typography,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
 export function EditDevice() {
   const { id } = useParams();
-  const [device, setDevice] = useState({});
-
+  const [device, setDevice] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  async function getDeviceById(id) {
-    setIsLoading(true); // Start the loader
-    const response = await fetch(
-      `https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`
-    );
-    const device = await response.json();
-    console.log(device);
-    setIsLoading(false); // Stop the loader
-    setDevice(device);
-  }
-
   useEffect(() => {
-    getDeviceById(id); // id from URL
+    async function fetchDevice() {
+      setIsLoading(true);
+      const response = await fetch(
+        `https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`
+      );
+      const data = await response.json();
+      setDevice(data);
+      setIsLoading(false);
+    }
+
+    fetchDevice();
   }, [id]);
 
-  // Better UX
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+  if (isLoading || !device) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" mt={4}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
-  //   When device has data - Below will render
   return <EditDeviceForm device={device} />;
 }
 
 function EditDeviceForm({ device }) {
-  // input box - variable
-  //const [state, setState] = useState(INITIAL_Value)
-  const [name, setName] = useState(device.name);
-  const [brand, setBrand] = useState(device.brand);
-  const [purchaseYear, setPurchaseYear] = useState(device.purchaseYear);
-  const [price, setPrice] = useState(device.price);
-  const [serialNumber, setSerialNumber] = useState(device.serialNumber);
-
   const navigate = useNavigate();
 
-  const updateDevice = async (event) => {
-    event.preventDefault();
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Required"),
+    brand: Yup.string().required("Required"),
+    serialNumber: Yup.string().required("Required"),
+    purchaseYear: Yup.number()
+      .required("Required")
+      .min(1900, "Invalid year")
+      .max(new Date().getFullYear(), "Cannot be in the future"),
+    price: Yup.number().required("Required").positive("Must be positive"),
+  });
 
-    console.log("addDevice", name, brand);
-
-    // Object Short hand
-    const updatedDevice = {
-      name,
-      brand,
-      purchaseYear,
-      price,
-      serialNumber,
-    };
-
-    // PUT
-    // 1. method - PUT & id (URL)
-    // 2. Body - data (JSON)
-    // 3. Header - JSON - (Inform to the backend JSON data)
-
-    const response = await fetch(
+  const handleSubmit = async (values) => {
+    await fetch(
       `https://68871b87071f195ca97f46b5.mockapi.io/devices/${device.id}`,
       {
         method: "PUT",
-        body: JSON.stringify(updatedDevice),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(values),
       }
     );
-
-    navigate("/dashboard"); // +1 -> go forward, -1 -> go back
+    navigate("/dashboard");
   };
 
   return (
@@ -83,46 +74,107 @@ function EditDeviceForm({ device }) {
       <img
         className="edit-image"
         src="https://www.svgrepo.com/download/210248/devices-tablet.svg"
-        // src="https://cdn-icons-png.flaticon.com/512/9412/9412850.png"
-        alt="edit-form-image"
-      ></img>
+        alt="edit-device"
+      />
       <div className="edit-form">
-        <h1 className="edit-head">Edit {name}</h1>
-        <form onSubmit={updateDevice} className="device-form-container">
-          <TextField
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder="Name"
-            value={name}
-          />
-          <TextField
-            onChange={(event) => setBrand(event.target.value)}
-            type="text"
-            placeholder="Brand"
-            value={brand}
-          />
-          <TextField
-            onChange={(event) => setSerialNumber(event.target.value)}
-            type="text"
-            placeholder="Serial Number"
-            value={serialNumber}
-          />
-          <TextField
-            onChange={(event) => setPurchaseYear(event.target.value)}
-            type="text"
-            placeholder="Purchase Year"
-            value={purchaseYear}
-          />
-          <TextField
-            onChange={(event) => setPrice(event.target.value)}
-            type="text"
-            placeholder="Original Purchase Price"
-            value={price}
-          />
-          <Button type="submit" startIcon={<EditIcon />}>
-            Save
-          </Button>
-        </form>
+        <Typography variant="h4" className="edit-head">
+          Edit {device.name}
+        </Typography>
+
+        <Formik
+          initialValues={{
+            name: device.name || "",
+            brand: device.brand || "",
+            serialNumber: device.serialNumber || "",
+            purchaseYear: device.purchaseYear || "",
+            price: device.price || "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            touched,
+            errors,
+            isSubmitting,
+          }) => (
+            <Form className="device-form-container">
+              <TextField
+                name="name"
+                label="Name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
+                fullWidth
+                margin="normal"
+              />
+
+              <TextField
+                name="brand"
+                label="Brand"
+                value={values.brand}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.brand && Boolean(errors.brand)}
+                helperText={touched.brand && errors.brand}
+                fullWidth
+                margin="normal"
+              />
+
+              <TextField
+                name="serialNumber"
+                label="Serial Number"
+                value={values.serialNumber}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.serialNumber && Boolean(errors.serialNumber)}
+                helperText={touched.serialNumber && errors.serialNumber}
+                fullWidth
+                margin="normal"
+              />
+
+              <TextField
+                name="purchaseYear"
+                label="Purchase Year"
+                value={values.purchaseYear}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.purchaseYear && Boolean(errors.purchaseYear)}
+                helperText={touched.purchaseYear && errors.purchaseYear}
+                fullWidth
+                margin="normal"
+              />
+
+              <TextField
+                name="price"
+                label="Original Purchase Price"
+                value={values.price}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.price && Boolean(errors.price)}
+                helperText={touched.price && errors.price}
+                fullWidth
+                margin="normal"
+              />
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                startIcon={<EditIcon />}
+                disabled={isSubmitting}
+                sx={{ mt: 2 }}
+              >
+                Save
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </section>
   );

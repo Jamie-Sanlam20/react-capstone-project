@@ -1,25 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { TextField, Button } from "@mui/material";
-import React from "react";
-import ReactDOM from "react-dom";
+import { TextField, Button, Paper, Typography, Box } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import AddIcon from "@mui/icons-material/Add";
 
-const validationSchema = yup.object({
+const deviceSchema = yup.object({
   name: yup.string().required("Device name is required"),
-
   brand: yup.string().required("Brand is required"),
-
   serialNumber: yup.string().required("Serial number is required"),
-
   purchaseYear: yup
     .number()
     .typeError("Purchase year must be numbers")
     .min(2000, "Year must be 2000 or later")
     .max(new Date().getFullYear(), `Year can't be in the future`)
     .required("Purchase year is required"),
-
   price: yup
     .number()
     .typeError("Price must be a number")
@@ -30,197 +25,147 @@ const validationSchema = yup.object({
 export function AddDevice() {
   const navigate = useNavigate();
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      brand: "",
-      serialNumber: "",
-      purchaseYear: "",
-      price: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await fetch(
-          "https://68871b87071f195ca97f46b5.mockapi.io/devices",
-          {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: {
-              "Content-Type": "application/json",
-            },
+  const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        name: "",
+        brand: "",
+        serialNumber: "",
+        purchaseYear: "",
+        price: "",
+      },
+      validationSchema: deviceSchema,
+      onSubmit: async (values) => {
+        try {
+          const response = await fetch(
+            "https://68871b87071f195ca97f46b5.mockapi.io/devices",
+            {
+              method: "POST",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to add device");
           }
-        );
 
-        if (!response.ok) {
-          throw new Error("Failed to add device");
+          navigate("/dashboard");
+        } catch (error) {
+          console.error("Error adding device:", error.message);
         }
-
-        navigate("/dashboard"); // Go to dashboard after submission
-      } catch (error) {
-        console.error("Error adding device:", error.message);
-      }
-    },
-  });
+      },
+    });
 
   return (
-    <div className="add-page">
-      <h1 className="add-head">Add a new device</h1>
-      <form onSubmit={formik.handleSubmit} className="add-form">
-        <TextField
-          fullWidth
-          id="name"
-          name="name"
-          label="Name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
-        <TextField
-          fullWidth
-          id="brand"
-          name="brand"
-          label="Brand"
-          value={formik.values.brand}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.brand && Boolean(formik.errors.brand)}
-          helperText={formik.touched.brand && formik.errors.brand}
-        />
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        mt: 6,
+        px: 2,
+      }}
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          width: "100%",
+          maxWidth: 600,
+          borderRadius: 3,
+          backgroundColor: "background.paper",
+        }}
+      >
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ fontWeight: "bold" }}
+        >
+          Add a New Device
+        </Typography>
 
-        <TextField
-          fullWidth
-          id="serialNumber"
-          name="serialNumber"
-          label="Serial Number"
-          value={formik.values.serialNumber}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={
-            formik.touched.serialNumber && Boolean(formik.errors.serialNumber)
-          }
-          helperText={formik.touched.serialNumber && formik.errors.serialNumber}
-        />
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            mt: 3,
+          }}
+        >
+          <TextField
+            fullWidth
+            name="name"
+            label="Device Name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.name)}
+            helperText={touched.name && errors.name}
+          />
 
-        <TextField
-          fullWidth
-          id="purchaseYear"
-          name="purchaseYear"
-          label="Purchase Year"
-          type="number"
-          value={formik.values.purchaseYear}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={
-            formik.touched.purchaseYear && Boolean(formik.errors.purchaseYear)
-          }
-          helperText={formik.touched.purchaseYear && formik.errors.purchaseYear}
-        />
+          <TextField
+            fullWidth
+            name="brand"
+            label="Brand"
+            value={values.brand}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.brand && Boolean(errors.brand)}
+            helperText={touched.brand && errors.brand}
+          />
 
-        <TextField
-          fullWidth
-          id="price"
-          name="price"
-          label="Original Purchase Price"
-          type="number"
-          value={formik.values.price}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.price && Boolean(formik.errors.price)}
-          helperText={formik.touched.price && formik.errors.price}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </form>
-    </div>
+          <TextField
+            fullWidth
+            name="serialNumber"
+            label="Serial Number"
+            value={values.serialNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.serialNumber && Boolean(errors.serialNumber)}
+            helperText={touched.serialNumber && errors.serialNumber}
+          />
+
+          <TextField
+            fullWidth
+            name="purchaseYear"
+            label="Purchase Year"
+            type="number"
+            value={values.purchaseYear}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.purchaseYear && Boolean(errors.purchaseYear)}
+            helperText={touched.purchaseYear && errors.purchaseYear}
+          />
+
+          <TextField
+            fullWidth
+            name="price"
+            label="Original Purchase Price"
+            type="number"
+            value={values.price}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.price && Boolean(errors.price)}
+            helperText={touched.price && errors.price}
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<AddIcon />}
+            sx={{ mt: 2 }}
+          >
+            Add Device
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
-
-// /movies/new - AddMovie
-// export function AddDevice() {
-//   // input box - variable
-
-//   //   [{"id":100,"name":"iPhone 13 Pro","brand":"Apple","purchaseYear":2022,"price":18999,"serialNumber":"APL-001XZ"}
-//   const [name, setName] = useState("");
-//   const [brand, setBrand] = useState("");
-//   const [purchaseYear, setPurchaseYear] = useState("");
-//   const [price, setPrice] = useState("");
-//   const [serialNumber, setSerialNumber] = useState("");
-//   const navigate = useNavigate();
-
-//   const addDevice = async (event) => {
-//     event.preventDefault(); // Prevent Refesh Behaviour
-
-//     // setColors([...colors, color]);
-//     console.log("addDevice", name, brand);
-
-//     // Object Short hand
-//     const newDevice = {
-//       name,
-//       brand,
-//       purchaseYear,
-//       price,
-//       serialNumber,
-//     };
-
-//     // // Copy the existing movies + New movie
-//     // setMovies([...movies, newMovie]);
-//     // API Call
-
-//     // POST
-//     // 1. method - POST
-//     // 2. Body - data (JSON)
-//     // 3. Header - JSON - (Inform to the backend JSON data)
-
-//     const response = await fetch(
-//       "https://68871b87071f195ca97f46b5.mockapi.io/devices",
-//       {
-//         method: "POST",
-//         body: JSON.stringify(newDevice),
-//         headers: {
-//           "Content-type": "application/json",
-//         },
-//       }
-//     );
-
-//     navigate("/dashboard"); // +1 -> go forward, -1 -> go back
-//   };
-
-//   return (
-//     <form onSubmit={addDevice} className="device-form-container">
-//       <TextField
-//         onChange={(event) => setName(event.target.value)}
-//         type="text"
-//         label="Device Name"
-//       />
-//       <TextField
-//         onChange={(event) => setBrand(event.target.value)}
-//         type="text"
-//         label="Device Brand"
-//       />
-//       <TextField
-//         onChange={(event) => setSerialNumber(event.target.value)}
-//         type="text"
-//         label="Serial Number"
-//       />
-//       <TextField
-//         onChange={(event) => setPurchaseYear(event.target.value)}
-//         type="text"
-//         label="Purchase Year"
-//       />
-//       <TextField
-//         onChange={(event) => setPrice(event.target.value)}
-//         type="text"
-//         label="Original Purchase Price"
-//       />
-
-//       {/* Task 1.2 Add Box to the List */}
-//       <Button type="submit" variant="contained" color="primary">
-//         Submit
-//       </Button>
-//     </form>
-//   );
-// }
