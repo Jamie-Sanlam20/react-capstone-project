@@ -64,8 +64,9 @@ export function AddDevice() {
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
+    <div className="add-page">
+      <h1 className="add-head">Add a new device</h1>
+      <form onSubmit={formik.handleSubmit} className="add-form">
         <TextField
           fullWidth
           id="name"

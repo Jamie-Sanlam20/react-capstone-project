@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { TextField, Button } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
 export function EditDevice() {
   const { id } = useParams();
@@ -78,41 +79,51 @@ function EditDeviceForm({ device }) {
   };
 
   return (
-    <form onSubmit={updateDevice} className="device-form-container">
-      <TextField
-        onChange={(event) => setName(event.target.value)}
-        type="text"
-        placeholder="Name"
-        value={name}
-      />
-      <TextField
-        onChange={(event) => setBrand(event.target.value)}
-        type="text"
-        placeholder="Brand"
-        value={brand}
-      />
-      <TextField
-        onChange={(event) => setSerialNumber(event.target.value)}
-        type="text"
-        placeholder="Serial Number"
-        value={serialNumber}
-      />
-
-      <TextField
-        onChange={(event) => setPurchaseYear(event.target.value)}
-        type="text"
-        placeholder="Purchase Year"
-        value={purchaseYear}
-      />
-
-      <TextField
-        onChange={(event) => setPrice(event.target.value)}
-        type="text"
-        placeholder="Original Purchase Price"
-        value={price}
-      />
-
-      <Button type="submit">✏️ Save</Button>
-    </form>
+    <section className="edit-page">
+      <img
+        className="edit-image"
+        src="https://www.svgrepo.com/download/210248/devices-tablet.svg"
+        // src="https://cdn-icons-png.flaticon.com/512/9412/9412850.png"
+        alt="edit-form-image"
+      ></img>
+      <div className="edit-form">
+        <h1 className="edit-head">Edit {name}</h1>
+        <form onSubmit={updateDevice} className="device-form-container">
+          <TextField
+            onChange={(event) => setName(event.target.value)}
+            type="text"
+            placeholder="Name"
+            value={name}
+          />
+          <TextField
+            onChange={(event) => setBrand(event.target.value)}
+            type="text"
+            placeholder="Brand"
+            value={brand}
+          />
+          <TextField
+            onChange={(event) => setSerialNumber(event.target.value)}
+            type="text"
+            placeholder="Serial Number"
+            value={serialNumber}
+          />
+          <TextField
+            onChange={(event) => setPurchaseYear(event.target.value)}
+            type="text"
+            placeholder="Purchase Year"
+            value={purchaseYear}
+          />
+          <TextField
+            onChange={(event) => setPrice(event.target.value)}
+            type="text"
+            placeholder="Original Purchase Price"
+            value={price}
+          />
+          <Button type="submit" startIcon={<EditIcon />}>
+            Save
+          </Button>
+        </form>
+      </div>
+    </section>
   );
 }

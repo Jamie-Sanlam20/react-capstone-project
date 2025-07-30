@@ -74,15 +74,6 @@
   margin-bottom: 32px;
 }
 
-nav {
-  ul {
-    display: flex;
-    list-style: none;
-    gap: 24px;
-    padding: 0;
-  }
-}
-
 .device-details-content-container {
   max-width: 600px;
 }
@@ -140,14 +131,14 @@ nav {
   letter-spacing: 0.5px; */
 }
 
-.banner-text {
+/* .banner-text {
   background-color: #f9f9f9;
   padding: 24px 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   letter-spacing: 0.5px;
-}
+} */
 
 
       .company-details {
@@ -198,4 +189,35 @@ nav {
         display: flex;
         justify-content: flex-end;
         padding: 0.5rem 1rem;
+      }
+
+      .edit-head {
+        text-align: center;
+      }
+
+      .edit-page {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .edit-form {
+        width: 600px;
+      }
+
+      .edit-image {
+        height: 400px;
+      }
+
+      .add-page {
+        margin: 20px;
+      }
+
+      .add-head {
+        margin-top: 0px;
+      }
+
+      .add-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
