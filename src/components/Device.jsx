@@ -3,20 +3,11 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import SendIcon from "@mui/icons-material/Send";
-import {
-  Button,
-  Card,
-  CardContent,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../utils/CalculationHelpers";
 
-// Presentation
-export function Device({ device, deleteBtn, editBtn }) {
+export function Device({ device, deleteBtn, editBtn, insuranceInfo }) {
   return (
     <Card
       className="device-container"
@@ -24,71 +15,52 @@ export function Device({ device, deleteBtn, editBtn }) {
       elevation={3}
     >
       <CardContent className="device-content-container">
-        <div className="device-specs">
-          <img
-            className="phone-img"
-            src="https://cdn-icons-png.flaticon.com/512/2397/2397574.png"
-            alt="Device Icon"
-            style={{ width: 60, height: 60 }}
-          />
+        <div>
+          <div className="device-specs">
+            <img
+              className="phone-img"
+              src="https://cdn-icons-png.flaticon.com/512/2397/2397574.png"
+              alt="Device Icon"
+            />
 
-          <List dense>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="subtitle2">Device Name</Typography>
-                }
-                secondary={<Typography>{device.name}</Typography>}
-              />
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="subtitle2">Device Type</Typography>
-                }
-                secondary={<Typography>{device.brand}</Typography>}
-              />
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="subtitle2">Serial Number</Typography>
-                }
-                secondary={<Typography>{device.serialNumber}</Typography>}
-              />
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="subtitle2">Purchase Year</Typography>
-                }
-                secondary={<Typography>{device.purchaseYear}</Typography>}
-              />
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="subtitle2">Original Price</Typography>
-                }
-                secondary={<Typography>R{device.price}</Typography>}
-              />
-            </ListItem>
-          </List>
-          <div className="edit-btn">{editBtn}</div>
+            <div>
+              <Typography variant="subtitle2">Device Name</Typography>
+              <Typography>{device.name}</Typography>
+
+              <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                Device Type
+              </Typography>
+              <Typography>{device.brand}</Typography>
+
+              <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                Serial Number
+              </Typography>
+              <Typography>{device.serialNumber}</Typography>
+
+              <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                Purchase Year
+              </Typography>
+              <Typography>{device.purchaseYear}</Typography>
+
+              <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                Original Price
+              </Typography>
+              <Typography>{formatCurrency(device.price)}</Typography>
+            </div>
+            {editBtn}
+          </div>
+
+          {/* Insurance info */}
+          {insuranceInfo}
         </div>
 
         <div className="btn-container">
           {deleteBtn}
-
           <Button
             variant="contained"
             component={Link}
             to={`/quotes/${device.id}`}
-            endIcon={<SendIcon />}
+            startIcon={<SendIcon />}
           >
             Get Quote
           </Button>

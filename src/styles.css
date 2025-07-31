@@ -11,41 +11,14 @@
   justify-content: space-evenly;
   gap: 1.5rem;
   margin-top: 0.5rem;
+  align-items: flex-start;
 }
-
-/* .spec-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 0.5rem;
-}
-
-.spec-list li {
-  min-height: 1.5rem;
-} */
-
-
-/* .device-name {
-  font-size: 24px;
-  margin: 0;
-}
-
-.device-rating {
-  font-size: 20px;
-  margin-top: 0;
-}
-
-.device-summary {
-  margin-top: 10px;
-  font-size: 16px;
-  line-height: 1.5;
-} */
 
 .device-content-container {
   padding: 16px;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
 }
 
 .device-list-container {
@@ -54,6 +27,7 @@
   justify-content: space-around;
   gap: 32px;
   align-items: flex-start;
+  padding: 20px;
 }
 
 .device-form-container {
@@ -72,22 +46,17 @@
 }
 
 .phone-img {
-    width: 50px;
+    width: 60px;
+    height: 60px;
 }
 
 .banner {
         background: url(https://static.vecteezy.com/system/resources/previews/010/829/956/original/mockup-gadget-and-device-smartphones-tablets-laptops-and-computer-monitors-black-with-blank-screen-png.png);
         height: 900px;
-
-        /* removes repitition of BG */
         background-repeat: no-repeat;
-
-        /* Zoom in */
         background-size: contain;
-
-        /* Focus on bottom */
         background-position: bottom;
-      }
+}
 
 .banner-title {
   margin: 0;
@@ -195,4 +164,10 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.search-form-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }

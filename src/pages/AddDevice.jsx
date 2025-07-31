@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import { TextField, Button, Paper, Typography, Box } from "@mui/material";
 import { useFormik } from "formik";
@@ -36,12 +35,20 @@ export function AddDevice() {
       },
       validationSchema: deviceSchema,
       onSubmit: async (values) => {
+        const deviceWithNoInsurance = {
+          ...values,
+          insurancePlan: null,
+          insuredValue: null,
+          monthlyPremium: null,
+          excess: null,
+        };
+
         try {
           const response = await fetch(
             "https://68871b87071f195ca97f46b5.mockapi.io/devices",
             {
               method: "POST",
-              body: JSON.stringify(values),
+              body: JSON.stringify(deviceWithNoInsurance),
               headers: {
                 "Content-Type": "application/json",
               },
@@ -60,14 +67,7 @@ export function AddDevice() {
     });
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        mt: 6,
-        px: 2,
-      }}
-    >
+    <Box sx={{ display: "flex", justifyContent: "center", mt: 6, px: 2 }}>
       <Paper
         elevation={3}
         sx={{
@@ -90,12 +90,7 @@ export function AddDevice() {
         <Box
           component="form"
           onSubmit={handleSubmit}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            mt: 3,
-          }}
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}
         >
           <TextField
             fullWidth

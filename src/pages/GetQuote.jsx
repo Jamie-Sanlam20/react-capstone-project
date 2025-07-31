@@ -1,74 +1,98 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Quote } from "../components/Quote";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import {
   calculateDepreciatedValue,
   generateQuotes,
-} from "../utils/calculateDepreciatedValue";
+  formatCurrency,
+} from "../utils/CalculationHelpers";
 
 export function GetQuote() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [device, setDevice] = useState(null);
   const [quotes, setQuotes] = useState([]);
-  const [selectedQuoteId, setSelectedQuoteId] = useState(null); // Tracks selection
+  const [selectedQuoteId, setSelectedQuoteId] = useState(null);
 
   useEffect(() => {
-    fetch(`https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    async function fetchDevice() {
+      try {
+        const res = await fetch(
+          `https://68871b87071f195ca97f46b5.mockapi.io/devices/${id}`
+        );
+        const data = await res.json();
+
         setDevice(data);
+
         const insuredValue = calculateDepreciatedValue(
           data.purchaseYear,
           data.price
         );
         const quoteOptions = generateQuotes(insuredValue);
-        setQuotes(quoteOptions);
-      });
+
+        setQuotes(Array.isArray(quoteOptions) ? quoteOptions : []);
+      } catch (error) {
+        console.error("Error fetching device:", error.message);
+      }
+    }
+
+    fetchDevice();
   }, [id]);
 
   const handleConfirm = () => {
-    if (!selectedQuoteId) return;
+    if (!selectedQuoteId || !device?.id) return;
     navigate(`/confirm/${device.id}/${selectedQuoteId}`);
   };
 
-  if (!device) return <p>Loading device info...</p>;
+  if (!device) {
+    return (
+      <Typography sx={{ mt: 4, textAlign: "center" }}>
+        Loading device info...
+      </Typography>
+    );
+  }
+
+  const insuredValue = calculateDepreciatedValue(
+    device.purchaseYear,
+    device.price
+  );
 
   return (
     <section className="quote-page">
-      <h2 className="quote-heading">Quotes for {device.name}</h2>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        Quotes for {device.brand} {device.name}
+      </Typography>
+
       <div className="quote-details">
-        <p>
-          <strong>Original Price:</strong> R{device.price}
-        </p>
-        <p>
+        <Typography>
+          <strong>Original Price:</strong> {formatCurrency(device.price)}
+        </Typography>
+        <Typography>
           <strong>Purchase Year:</strong> {device.purchaseYear}
-        </p>
-        <p>
-          <strong>Insured Value (with 20% depreciation per annum): </strong> R
-          {calculateDepreciatedValue(device.purchaseYear, device.price)}
-        </p>
+        </Typography>
+        <Typography>
+          <strong>Insured Value:</strong> {formatCurrency(insuredValue)}
+        </Typography>
       </div>
 
-      <h3 className="quote-heading">Insurance Options:</h3>
+      <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
+        Insurance Options
+      </Typography>
+
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
         {quotes.map((quote) => (
           <Quote
             key={quote.id}
             plan={quote}
             isSelected={quote.id === selectedQuoteId}
-            onSelect={() => setSelectedQuoteId(quote.id)} // Pass handler
+            onSelect={() => setSelectedQuoteId(quote.id)}
           />
         ))}
       </div>
 
       {selectedQuoteId && (
-        <Button
-          variant="contained"
-          onClick={handleConfirm}
-          sx={{ marginTop: "1rem" }}
-        >
+        <Button variant="contained" onClick={handleConfirm} sx={{ mt: 3 }}>
           Confirm Plan
         </Button>
       )}

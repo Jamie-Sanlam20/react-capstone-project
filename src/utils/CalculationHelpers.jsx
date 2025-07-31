@@ -1,5 +1,3 @@
-// --- Calculation Helpers ---
-
 export function calculateDepreciatedValue(purchaseYear, originalPrice) {
   const currentYear = new Date().getFullYear();
   const age = currentYear - purchaseYear;
@@ -15,23 +13,31 @@ export function generateQuotes(insuredValue) {
     {
       id: "bsc",
       planName: "Basic Cover",
+      insuredValue,
       monthlyPremium: (insuredValue * 0.04).toFixed(2),
       coverage: ["Accidental Damage"],
-      excess: "R500",
+      excess: 500,
     },
     {
       id: "std",
       planName: "Standard Cover",
+      insuredValue,
       monthlyPremium: (insuredValue * 0.06).toFixed(2),
       coverage: ["Accidental Damage", "Power Surge", "Theft"],
-      excess: "R300",
+      excess: 300,
     },
     {
       id: "prem",
       planName: "Premium Cover",
+      insuredValue,
       monthlyPremium: (insuredValue * 0.08).toFixed(2),
       coverage: ["Full Coverage incl. Liquid Damage", "Theft", "Power Surge"],
-      excess: "R150",
+      excess: 150,
     },
   ];
+}
+
+export function formatCurrency(value) {
+  if (value == null) return ""; // handles insuredValue initially being 'null'
+  return "R" + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
