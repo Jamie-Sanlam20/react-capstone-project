@@ -6,13 +6,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.device-poster {
-  height: 640px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
 .device-specs {
   display: flex;
   justify-content: space-evenly;
@@ -20,7 +13,7 @@
   margin-top: 0.5rem;
 }
 
-.spec-list {
+/* .spec-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -32,10 +25,10 @@
 
 .spec-list li {
   min-height: 1.5rem;
-}
+} */
 
 
-.device-name {
+/* .device-name {
   font-size: 24px;
   margin: 0;
 }
@@ -49,7 +42,7 @@
   margin-top: 10px;
   font-size: 16px;
   line-height: 1.5;
-}
+} */
 
 .device-content-container {
   padding: 16px;
@@ -105,92 +98,92 @@
 }
 
 
-      .banner-subtitle {
+.banner-subtitle {
   font-size: 1.2rem;
   margin-top: 10px;
   text-align: center;
 }
 
-      .company-details {
-        display: flex;
-        gap: 12px;
-        font-family: Roboto;
-        font-weight: bold;
-        align-items: center;
-      }
+.company-details {
+  display: flex;
+  gap: 12px;
+  font-family: Roboto;
+  font-weight: bold;
+  align-items: center;
+}
 
-      body {
-        margin: 0px
-      }
+body {
+  margin: 0px
+}
 
-      .quote-heading, .quote-details, .coverage-list {
-        font-family: Roboto;
-      }
+.quote-heading, .quote-details, .coverage-list {
+  font-family: Roboto;
+}
 
-      .app-bar {
-        display: flex;
-        justify-content: space-between;
-      }
+.app-bar {
+  display: flex;
+  justify-content: space-between;
+}
 
-      @media (min-width: 900px) {
-        .css-1t6c9ts {
-          display: flex;
-          justify-content: flex-end;
-        }
-      }
+@media (min-width: 900px) {
+  .css-1t6c9ts {
+    display: flex;
+  justify-content: flex-end;
+  }
+}
 
-      .quote-page {
-        margin: 30px;
-      }
+.quote-page {
+  margin: 30px;
+}
 
-      .search-form-container {
-        margin: 10px;
-      }
+.search-form-container {
+  margin: 10px;
+}
 
-      .btn-container {
-        margin-top: 1rem;
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
+.btn-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
-      .theme-switch {
-        display: flex;
-        justify-content: flex-end;
-        padding: 0.5rem 1rem;
-      }
+.theme-switch {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+}
 
-      .edit-head {
-        text-align: center;
-      }
+.edit-head {
+  text-align: center;
+}
 
-      .edit-page {
-        display: flex;
-        justify-content: space-evenly;
-      }
+.edit-page {
+  display: flex;
+  justify-content: space-evenly;
+}
 
-      .edit-form {
-        width: 600px;
-      }
+.edit-form {
+  width: 600px;
+}
 
-      .edit-image {
-        height: 400px;
-      }
+.edit-image {
+  height: 400px;
+}
 
-      .add-page {
-        margin: 20px;
-      }
+.add-page {
+  margin: 20px;
+}
 
-      .add-head {
-        margin-top: 0px;
-      }
+.add-head {
+  margin-top: 0px;
+}
 
-      .add-form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
 .error-container {
   background-image: url(https://www.vizion.com/wp-content/uploads/2018/09/shutterstock_479042983.jpg);

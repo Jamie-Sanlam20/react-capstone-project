@@ -1,21 +1,21 @@
 import {
-  ThemeProvider,
   CssBaseline,
-  Switch,
   FormControlLabel,
+  Switch,
+  ThemeProvider,
 } from "@mui/material";
+import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { ResponsiveAppBar } from "./components/Nav";
 import { AddDevice } from "./pages/AddDevice";
 import { Confirm } from "./pages/Confirm";
 import { Dashboard } from "./pages/Dashboard";
+import { EditDevice } from "./pages/EditDevice";
 import { GetQuote } from "./pages/GetQuote";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
-import { EditDevice } from "./pages/EditDevice";
-import { ResponsiveAppBar } from "./components/Nav";
 import "./styles.css";
-import { lightTheme, darkTheme } from "./theme";
-import { useState } from "react";
+import { darkTheme, lightTheme } from "./theme";
 
 // Component = UI + Logic
 export default function App() {
