@@ -15,7 +15,7 @@ import { GetQuote } from "./pages/GetQuote";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import "./styles.css";
-import { darkTheme, lightTheme } from "./theme";
+import { darkTheme, lightTheme } from "./components/theme";
 
 // Component = UI + Logic
 export default function App() {

@@ -4,19 +4,23 @@
 
 **TechProtect** is a modern React-based web application designed for a fictional device insurance company. It allows users to manage their devices, browse insurance plans, and request quotes. This application was built as part of a capstone project to demonstrate full-stack development using modern frontend tools and integration with a mock backend.
 
+## 🛜 Netlify URL
+
+- `https://techprotect.netlify.app/
+
 ---
 
 ## 🚀 Key Features
 
 ### 🔹 Device Management (CRUD)
 
-- Add, edit, and delete electronic devices (phones, tablets, laptops, etc.)
+- Add, edit, and delete electronic devices (phones)
 - Devices are saved to a cloud backend (MockAPI)
 
 ### 🔹 Insurance Quote Selection
 
 - Users can view a list of available insurance plans
-- After selecting a quote, the details are saved to their device
+- After selecting a quote, the details are saved to their device and displayed on the dashboard
 
 ### 🔹 Filter & Search
 
@@ -31,7 +35,7 @@
 ### 🔹 Routing and Navigation
 
 - Multi-page navigation using **React Router**
-- Pages include: Dashboard, Add/Edit Device, Insurance Quotes, Quote Confirmation
+- Pages include: Home, Dashboard, Add/Edit Device, Insurance Quotes (Get Quote), Quote Confirmation, Not Found (if page doesn't exist)
 
 ---
 
@@ -108,7 +112,7 @@
 | ---------------------------- | -------------------------------------------------------- |
 | `/home` or `/`               | Shows application home page                              |
 | `/dashboard`                 | Shows all devices with search and filter (by brand)      |
-| `/devices/new`               | Adds a new vehicle using Formik + MUI                    |
+| `/devices/new`               | Adds a new device using Formik + MUI                     |
 | `/edit/:id`                  | Edit an existing device                                  |
 | `/quotes/:id`                | Shows 3 insurance quotes for selected device             |
 | `/confirm/:deviceId/:planId` | Displays confirmation of selected quote + device summary |
@@ -122,6 +126,7 @@
 - Add authentication (e.g., login/logout)
 - Real-time premium calculation
 - Admin dashboard for managing insurance plans
+- Add more devices (Laptops / Tablets)
 
 ---
 
