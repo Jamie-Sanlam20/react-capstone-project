@@ -6,7 +6,7 @@
 
 ## 🛜 Netlify URL
 
-- `https://techprotect.netlify.app/
+- `https://techprotect.netlify.app/`
 
 ---
 
