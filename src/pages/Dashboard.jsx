@@ -73,14 +73,25 @@ export function Dashboard() {
           variant="outlined"
           fullWidth
           value={searchTerm}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
         />
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            ml: 2,
+            height: 40,
+            backgroundColor: "#1976d2",
+            textTransform: "none",
+            fontWeight: "bold",
+            px: 3,
+            "&:hover": {
+              backgroundColor: "#115293",
+            },
+          }}
+          startIcon={<SearchIcon />}
+        >
+          Search
+        </Button>
 
         <FormControl size="small" style={{ minWidth: 150, marginLeft: "1rem" }}>
           <InputLabel id="brand-label">Filter</InputLabel>
